@@ -1,11 +1,19 @@
 <?php
 include_once "db.php";
 
-// insBoard(&$param) {
-//     // $sql = 
-//     // "   INSERT INTO t_board
-//     //     (name, userImage, postImage, content, filter)
-//     //     VALUES
-//     //     ($param['']
-//     // ";
-// }
+function insBoard(&$param)
+{
+    $name = $param["name"];
+    $userImage = $param["userImage"];
+    $postImage = $param['postImage'];
+    $content = $param['content'];
+    $filter = $param['filter'];
+    $sql =
+        "   INSERT INTO feed
+        (name, userImage, postImage, content, filter)
+        VALUES
+        ('$name', '$userImage', '$postImage', '$content', '$filter')
+    ";
+    $conn = get_conn();
+    return mysqli_query($conn, $sql);
+}

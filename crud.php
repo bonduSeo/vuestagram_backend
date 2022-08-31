@@ -11,7 +11,9 @@ switch ($method) {
         break;
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
-
+        $result = insBoard($data);
+        // print $result;
+        print $data;
         break;
     case 'PUT':
         break;
