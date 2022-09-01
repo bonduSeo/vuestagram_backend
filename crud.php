@@ -1,20 +1,23 @@
 <?php
 include_once "db/db_feed.php";
+include_once "db/db_feed_pdo.php";
 $method = $_SERVER['REQUEST_METHOD'];
+$apiModel = new ApiModel();
 
 // print $_SERVER['PATH_INFO'];
 
 switch ($method) {
     case 'GET':
-        $result = getBoard();
+        $result =  $apiModel->getBoardPDO();
+
         $list = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $row['postImage'] = 'http://localhost/backend/' . $row['postImage'];
-            array_push($list, $row);
+        foreach ($result as $v) {
+            $v->postImage = 'http://localhost/backend/' . $v->postImage;
+            array_push($list, $v);
         }
         print json_encode($list);
 
-        // print(json_encode($list));
+
         break;
     case 'POST':
         // $data = json_decode(file_get_contents('php://input'), true);
